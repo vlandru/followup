@@ -122,7 +122,7 @@ class Followup extends Module
 	}
 
 	/* Log each sent e-mail */
-	private function logEmail($id_email_type, $id_cart_rule, $id_customer = null, $id_cart = null)
+	protected function logEmail($id_email_type, $id_cart_rule, $id_customer = null, $id_cart = null)
 	{
 		$values = array(
 			'id_email_type' => (int)$id_email_type,
@@ -137,7 +137,7 @@ class Followup extends Module
 	}
 
 	/* Each cart which wasn't transformed into an order */
-	private function cancelledCart($count = false)
+	protected function cancelledCart($count = false)
 	{
 		$email_logs = $this->getLogsEmail(1);
 		$sql = '
@@ -179,7 +179,7 @@ class Followup extends Module
 		}
 	}
 
-	private function getLogsEmail($email_type)
+	protected function getLogsEmail($email_type)
 	{
 		static $id_list = array(
 			'1' => array(),
@@ -220,7 +220,7 @@ class Followup extends Module
 	}
 
 	/* For all validated orders, a discount if re-ordering before x days */
-	private function reOrder($count = false)
+	protected function reOrder($count = false)
 	{
 		$email_logs = $this->getLogsEmail(2);
 		$sql = '
@@ -263,7 +263,7 @@ class Followup extends Module
 	}
 
 	/* For all customers with more than x euros in 90 days */
-	private function bestCustomer($count = false)
+	protected function bestCustomer($count = false)
 	{
 		$email_logs = $this->getLogsEmail(3);
 
@@ -320,7 +320,7 @@ class Followup extends Module
 	 *
 	 * @return void
 	 */
-	private function badCustomer($count = false)
+	protected function badCustomer($count = false)
 	{
 		$email_logs = $this->getLogsEmail(4);
 		$sql = '
@@ -364,7 +364,7 @@ class Followup extends Module
 		}
 	}
 
-	private function createDiscount($id_email_type, $amount, $id_customer, $date_validity, $description)
+	protected function createDiscount($id_email_type, $amount, $id_customer, $date_validity, $description)
 	{
 		$cart_rule = new CartRule();
 		$cart_rule->reduction_percent = (float)$amount;
